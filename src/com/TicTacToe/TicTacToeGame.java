@@ -1,20 +1,24 @@
 package com.TicTacToe;
 
+import java.util.Scanner;
+
 public class TicTacToeGame {
 
-	char[][] gameBoard = { { '-', '-', '-' }, { '-', '-', '-' }, { '-', '-', '-' } };
+	Scanner sc = new Scanner(System.in);
+	char[] gameBoard = new char[10];
+	char playerSymbol;
 
-	public void printBoard() {
-
-		for (int i = 0; i < 3; i++) {
-			for (int j = 0; j < 3; j++) {
-				System.out.print(gameBoard[i][j]);
-				System.out.print("|");
-			}
-			System.out.println();
-
+	public char[] printBoard() {
+		for (int i = 1; i <= 9; i++) {
+			gameBoard[i] = ' ';
 		}
+		return gameBoard;
+	}
 
+	public char chooseYourCharacter() {
+		System.out.println("Choose a Character X OR O ");
+		playerSymbol = sc.next().charAt(0);
+		return playerSymbol;
 	}
 
 }
