@@ -6,6 +6,7 @@ import java.util.Scanner;
 public class TicTacToeGame {
 	static char turn;
 	static Scanner userinput;
+	static String line = null;
 
 	// * UC1 *
 	public static char[] createBoard() {
@@ -56,6 +57,8 @@ public class TicTacToeGame {
 		while (winner == null) {
 			System.out.println("Please enter a number between 1 to 9");
 			numInput = input.nextInt();
+			if (turn == 'O')
+				numInput = blockOponentToNotWin(numInput, board); // method for blocking the opponot's win position
 			if (!(numInput > 0 && numInput <= 9)) // check the input is between 1 to 9 or not
 			{
 				System.out.println("Invalid input; re-enter slot number:");
@@ -98,7 +101,7 @@ public class TicTacToeGame {
 	// * UC7 *
 	public static String checkWinner(char[] board) {
 		for (int a = 0; a < 8; a++) {
-			String line = null;
+
 			switch (a) {
 			case 0: {
 				line = Character.toString(board[1]) + Character.toString(board[2]) + Character.toString(board[3]);
@@ -159,6 +162,128 @@ public class TicTacToeGame {
 		board[numInput] = 'X';
 	}
 
+	// * UC9 *
+	public static int blockOponentToNotWin(int numInput, char[] board) {
+		for (int a = 0; a < 8; a++) {
+			String str;
+			switch (a) {
+			case 0: {
+				str = Character.toString(board[1]) + Character.toString(board[2]) + Character.toString(board[3]);
+				if (str == "XX") {
+					for (int i = 1; i <= 3; i++) {
+						if (board[i] == ' ') {
+							turn = 'O';
+							numInput = i;
+							return numInput;
+						}
+					}
+
+				}
+				break;
+			}
+			case 1: {
+				str = Character.toString(board[4]) + Character.toString(board[5]) + Character.toString(board[6]);
+				if (str == "XX") {
+					for (int i = 1; i <= 3; i++) {
+						if (board[i] == ' ') {
+							turn = 'O';
+							numInput = i;
+							return numInput;
+						}
+					}
+
+				}
+				break;
+			}
+			case 2: {
+				str = Character.toString(board[7]) + Character.toString(board[8]) + Character.toString(board[9]);
+				if (str == "XX") {
+					for (int i = 7; i <= 9; i++) {
+						if (board[i] == ' ') {
+							turn = 'O';
+							numInput = i;
+							return numInput;
+						}
+					}
+
+				}
+				break;
+			}
+			case 3: {
+				str = Character.toString(board[1]) + Character.toString(board[4]) + Character.toString(board[7]);
+				if (str == "XX") {
+					for (int i = 1; i <= 7; i += 3) {
+						if (board[i] == ' ') {
+							turn = 'O';
+							numInput = i;
+							return numInput;
+						}
+					}
+
+				}
+				break;
+			}
+			case 4: {
+				str = Character.toString(board[2]) + Character.toString(board[5]) + Character.toString(board[8]);
+				if (str == "XX") {
+					for (int i = 2; i <= 8; i += 3) {
+						if (board[i] == ' ') {
+							turn = 'O';
+							numInput = i;
+							return numInput;
+						}
+					}
+
+				}
+				break;
+			}
+			case 5: {
+				str = Character.toString(board[3]) + Character.toString(board[6]) + Character.toString(board[9]);
+				if (str == "XX") {
+					for (int i = 3; i <= 9; i += 3) {
+						if (board[i] == ' ') {
+							turn = 'O';
+							numInput = i;
+							return numInput;
+						}
+					}
+
+				}
+				break;
+			}
+			case 6: {
+				str = Character.toString(board[1]) + Character.toString(board[5]) + Character.toString(board[9]);
+				if (str == "XX") {
+					for (int i = 1; i <= 9; i += 4) {
+						if (board[i] == ' ') {
+							turn = 'O';
+							numInput = i;
+							return numInput;
+						}
+					}
+
+				}
+				break;
+			}
+			case 7: {
+				str = Character.toString(board[3]) + Character.toString(board[5]) + Character.toString(board[7]);
+				if (str == "XX") {
+					for (int i = 3; i <= 7; i += 2) {
+						if (board[i] == ' ') {
+							turn = 'O';
+							numInput = i;
+							return numInput;
+						}
+					}
+
+				}
+				break;
+			}
+			}
+		}
+		return numInput;
+	}
+
 	public static void main(String[] args) {
 		Scanner userinput = new Scanner(System.in);
 		char[] board = createBoard(); // Method for creating Empty board for game
@@ -170,5 +295,4 @@ public class TicTacToeGame {
 		moveToDesiredLocation(board, firstplayer); // Method to go desired location to user in game
 
 	}
-
 }
