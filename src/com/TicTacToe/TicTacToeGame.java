@@ -8,7 +8,7 @@ public class TicTacToeGame {
 	static char turn;
 	static Scanner userinput;
 
-	// * UC1 *
+	// * UC1 * //
 	public static char[] createBoard() {
 		char[] gameBoard = new char[10];
 		for (int i = 1; i < 10; i++) {
@@ -17,7 +17,7 @@ public class TicTacToeGame {
 		return gameBoard;
 	}
 
-	// * UC2 *
+	// * UC2 * //
 	public static char choosePlayerTurn() {
 		System.out.println("Write the play key");
 		Scanner userinput = new Scanner(System.in);
