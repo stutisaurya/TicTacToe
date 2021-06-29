@@ -10,7 +10,7 @@ public class TicTacToeGame {
 	static int numInput;
 	static String winner = null;
 
-	// * UC1 *
+	// * Method to create empty Board Game of 9*9 *
 	public static char[] createBoard() {
 		char[] gameBoard = new char[10];
 		for (int i = 1; i < 10; i++) {
@@ -19,7 +19,7 @@ public class TicTacToeGame {
 		return gameBoard;
 	}
 
-	// * UC2 *
+	// * Method to choose player turn *
 	public static char choosePlayerTurn() {
 		System.out.println("Write the play key");
 		Scanner userinput = new Scanner(System.in);
@@ -35,7 +35,7 @@ public class TicTacToeGame {
 		}
 	}
 
-	// * UC3 *
+	// * Method to show Game Board *
 	public static void showBoard(char[] board) {
 		System.out.println("/---|---|---\\");
 		System.out.println("| " + board[1] + " | " + board[2] + " | " + board[3] + " |");
@@ -46,7 +46,7 @@ public class TicTacToeGame {
 		System.out.println("/---|---|---\\");
 	}
 
-	// * UC4 *
+	// * Method for move to desired location *
 	public static void moveToDesiredLocation(char[] board, boolean firstplayer) {
 		Scanner input = new Scanner(System.in);
 		if (firstplayer == true) // if get true then computer will start first
@@ -56,10 +56,16 @@ public class TicTacToeGame {
 			turn = 'O';
 		while (winner == null) {
 			System.out.println("Please enter a number between 1 to 9");
-			numInput = input.nextInt();
-			winnerCondition(board);
+			if (turn == 'O')
+				numInput = input.nextInt();
+			else {
+				Random rand = new Random();
+				numInput = rand.nextInt((9 - 1) + 1) + 1;
+			}
+			winnerCondition(board); // method for winning conditions (1)Cornor Condition(2) center condition
 			if (turn == 'O')
 				numInput = blockOponentToNotWin(numInput, board); // method for blocking the opponot's win position
+
 			if (!(numInput > 0 && numInput <= 9)) // check the input is between 1 to 9 or not
 			{
 				System.out.println("Invalid input; re-enter slot number:");
@@ -74,7 +80,6 @@ public class TicTacToeGame {
 					turn = 'X';
 				}
 				winner = checkWinner(board); // we will check the winner through this method
-
 			} else {
 				System.out.println("Slot already taken; re-enter slot number:");
 				showBoard(board);
@@ -88,13 +93,13 @@ public class TicTacToeGame {
 		}
 	}
 
-	// * UC6 *
+	// * Random true for computer and false for user to start the game *
 	public static boolean startGame() {
 		Random random = new Random();
 		return random.nextBoolean();
 	}
 
-	// * UC7 *
+	// * check the winner between user and computer *
 	public static String checkWinner(char[] board) {
 		for (int a = 0; a < 8; a++) {
 
@@ -153,12 +158,11 @@ public class TicTacToeGame {
 		return null;
 	}
 
-	// * UC8 *
 	public static void moveToComputerWin(char[] board, int numInput) {
 		board[numInput] = 'X';
 	}
 
-	// * UC9 *
+	// * do block the position of opponont if he is goining to win *
 	public static int blockOponentToNotWin(int numInput, char[] board) {
 		for (int a = 0; a < 8; a++) {
 			String str;
@@ -312,15 +316,16 @@ public class TicTacToeGame {
 
 	// Main
 	public static void main(String[] args) {
-		Scanner userinput = new Scanner(System.in);
-		char[] board = createBoard(); // Method for creating Empty board for game
-		System.out.println("Welocme to User And Computer Player");
-		char turn = choosePlayerTurn(); // Method for choose player turn
-		showBoard(board); // Method to show board of Tic Tac Toe Toe toe game
-		Boolean firstplayer = startGame(); // Method to get randomly which one will start first
-		System.out.println("We get randomly this " + firstplayer);
-		moveToDesiredLocation(board, firstplayer); // Method to go desired location to user in game
-
+		while (true) {
+			Scanner userinput = new Scanner(System.in);
+			char[] board = createBoard(); // Method for creating Empty board for game
+			System.out.println("Welocme to User And Computer Player");
+			char turn = choosePlayerTurn(); // Method for choose player turn
+			showBoard(board); // Method to show board of Tic Tac Toe Toe toe game
+			Boolean firstplayer = startGame(); // Method to get randomly which one will start first
+			System.out.println("We get randomly this " + firstplayer);
+			moveToDesiredLocation(board, firstplayer); // Method to go desired location to user in game
+		}
 	}
 
 }
