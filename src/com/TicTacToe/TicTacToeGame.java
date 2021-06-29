@@ -7,6 +7,8 @@ public class TicTacToeGame {
 	static char turn;
 	static Scanner userinput;
 	static String line = null;
+	static int numInput;
+	static String winner = null;
 
 	// * UC1 *
 	public static char[] createBoard() {
@@ -47,8 +49,6 @@ public class TicTacToeGame {
 	// * UC4 *
 	public static void moveToDesiredLocation(char[] board, boolean firstplayer) {
 		Scanner input = new Scanner(System.in);
-		String winner = null;
-		int numInput;
 		if (firstplayer == true) // if get true then computer will start first
 		{
 			turn = 'X';
@@ -57,6 +57,7 @@ public class TicTacToeGame {
 		while (winner == null) {
 			System.out.println("Please enter a number between 1 to 9");
 			numInput = input.nextInt();
+			winnerCondition(board);
 			if (turn == 'O')
 				numInput = blockOponentToNotWin(numInput, board); // method for blocking the opponot's win position
 			if (!(numInput > 0 && numInput <= 9)) // check the input is between 1 to 9 or not
@@ -73,11 +74,6 @@ public class TicTacToeGame {
 					turn = 'X';
 				}
 				winner = checkWinner(board); // we will check the winner through this method
-				if (winner == "User") {
-					moveToComputerWin(board, numInput); // if User is winning by taking any particular position than
-														// computer will follow that one to win purpose
-					winner = null;
-				}
 
 			} else {
 				System.out.println("Slot already taken; re-enter slot number:");
@@ -282,6 +278,30 @@ public class TicTacToeGame {
 			}
 		}
 		return numInput;
+	}
+
+	// * UC10 *
+	public static void winnerCondition(char[] board) {
+		if (winner == null) {
+			if (board[1] == ' ') {
+				numInput = 1;
+				return;
+			} else if (board[3] == ' ') {
+				numInput = 3;
+				return;
+			} else if (board[7] == ' ') {
+				numInput = 7;
+				return;
+			} else if (board[9] == ' ') {
+				numInput = 9;
+				return;
+			}
+
+		} else if (winner == "User") {
+			moveToComputerWin(board, numInput); // if User is winning by taking any particular position than computer
+												// will follow that one to win purpose
+			winner = null;
+		}
 	}
 
 	public static void main(String[] args) {
