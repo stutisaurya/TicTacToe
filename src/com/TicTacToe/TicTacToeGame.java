@@ -46,25 +46,27 @@ public class TicTacToeGame {
 	public static void moveToDesiredLocation(char[] board) {
 		Scanner input = new Scanner(System.in);
 		int numInput;
-		int j = 0;
-		while (j == 0) {
+		// int j=0;
+		while (true) {
 			System.out.println("Please enter a number between 1 to 9");
 			numInput = input.nextInt();
 			if (!(numInput > 0 && numInput <= 9)) // check the input is between 1 to 9 or not
 			{
 				System.out.println("Invalid input; re-enter slot number:");
-				j = 1;
 				continue;
 
 			} else if (board[numInput] == ' ') {
 				board[numInput] = turn;
 				showBoard(board);
-				j = 1;
+				if (turn == 'X') {
+					turn = 'O';
+				} else {
+					turn = 'X';
+				}
 			} else {
 				System.out.println("Slot already taken; re-enter slot number:");
-				j = 1;
+				showBoard(board);
 				continue;
-
 			}
 		}
 	}
@@ -74,7 +76,7 @@ public class TicTacToeGame {
 		char[] board = createBoard(); // Method for creating Empty board for game
 		System.out.println("Welocme to User And Computer Player");
 		char turn = choosePlayerTurn(); // Method for choose player turn
-		showBoard(board); // Method to show board of Tic Tac Toe toe game
+		showBoard(board); // Method to show board of Tic Tac Toe Toe toe game
 		moveToDesiredLocation(board); // Method to go desired location to user in game
 	}
 }
