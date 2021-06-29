@@ -4,7 +4,6 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class TicTacToeGame {
-
 	static char turn;
 	static Scanner userinput;
 	static String line = null;
@@ -281,7 +280,7 @@ public class TicTacToeGame {
 		return numInput;
 	}
 
-	// * UC10 *
+	// * Winner Condition for cornor cases *
 	public static void winnerCondition(char[] board) {
 		if (winner == null) // we will choose cornor when no one is going to winning
 		{
@@ -311,6 +310,7 @@ public class TicTacToeGame {
 		}
 	}
 
+	// Main
 	public static void main(String[] args) {
 		Scanner userinput = new Scanner(System.in);
 		char[] board = createBoard(); // Method for creating Empty board for game
@@ -320,5 +320,7 @@ public class TicTacToeGame {
 		Boolean firstplayer = startGame(); // Method to get randomly which one will start first
 		System.out.println("We get randomly this " + firstplayer);
 		moveToDesiredLocation(board, firstplayer); // Method to go desired location to user in game
+
 	}
+
 }
